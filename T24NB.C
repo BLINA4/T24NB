@@ -66,6 +66,14 @@ void main( void )
                DB[i].Birthday.Month, DB[i].Birthday.Year);  
       break;
     case '4':
+      printf("Enter type of sorting:\n");
+      scanf("%i", &i);
+      GetStr(NULL, 0);
+
+      if (i == 1)
+        SortAlphabet(DB, DBSize);
+      else
+        SortDOB(DB, DBSize);  
       break;
     case '5':
       for (i = 0; i < DBSize / 2; i++)

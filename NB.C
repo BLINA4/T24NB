@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "NB.H"
 
@@ -108,6 +109,74 @@ int LoadDB( PUPIL *DB, char *FileName )
 
   return DBSize;
 } /* End of 'LoadDB' function */
+
+/* Quick sort by alphabet function */
+void SortAlphabet( PUPIL *DB, int N )
+{
+  int b, e;
+  char x[30];
+
+  strncpy(x, DB[N / 2].Surname, 30);
+
+  b = 0;
+  e = N - 1;
+ 
+  if (N < 2)
+    return;
+ 
+  while (b <= e)
+  {
+    while (strncmp(DB[b].Surname, x, 30) < 0)
+      b++;
+    while (strncmp(DB[e].Surname, x, 30) > 0)
+      e--;
+    if (b <= e)
+      Swap(&DB[b++], &DB[e--]);
+  }
+ 
+  SortAlphabet(DB, e + 1);
+  SortAlphabet(DB + b, N - b);
+} /* End of 'SortAlphabet' function */
+
+/* Check date function */
+int IsDateBigger( DATE A, DATE B )
+{
+  if (A.Year > B.Year)
+    return 1;
+  else
+    if (A.Year == B.Year && A.Month > B.Month)
+      return 1;
+    else
+      if (A.Year == B.Year && A.Month == B.Month && A.Day > B.Day)
+        return 1;
+  return 0;
+} /* End of 'IsDateBigger' function */
+
+/* Quick sort by DOB function */
+void SortDOB( PUPIL *DB, int N )
+{
+  int b, e;
+  DATE x = DB[N /2].Birthday;
+ 
+  b = 0;
+  e = N - 1;
+ 
+  if (N < 2)
+    return;
+ 
+  while (b <= e)
+  {
+    while (IsDateBigger(x, DB[b].Birthday))
+      b++;
+    while (IsDateBigger(DB[e].Birthday, x))
+      e--;
+    if (b <= e)
+      Swap(&DB[b++], &DB[e--]);
+  }
+ 
+  SortAlphabet(DB, e + 1);
+  SortAlphabet(DB + b, N - b);
+} /* End of 'SortDOB' function */
 
 /* END OF 'NB.C' FILE */
 

@@ -36,5 +36,11 @@ int LoadDB( PUPIL *DB, char *FileName );
 /* Database save function */
 void SaveDB( PUPIL *DB, int DBSize, char *FileName );
 
+/* Database sort by alphabet function */
+void SortAlphabet( PUPIL *DB, int N );
+
+/* Database sort by DOB function */
+void SortDOB( PUPIL *DB, int N );
+
 /* END OF 'NB.H' FILE */
 
