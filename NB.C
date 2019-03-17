@@ -90,6 +90,8 @@ void SaveDB( PUPIL *DB, int DBSize, char *FileName )
 
   fwrite(&DBSize, sizeof(int), 1, F);
   fwrite(DB, sizeof(PUPIL), DBSize, F);
+
+  fclose(F);
 } /* End of 'SaveDB' function */
 
 /* Database load function */
@@ -107,6 +109,7 @@ int LoadDB( PUPIL *DB, char *FileName )
   fread(&DBSize, sizeof(int), 1, F);
   fread(DB, sizeof(PUPIL), DBSize, F);
 
+  fclose(F);
   return DBSize;
 } /* End of 'LoadDB' function */
 
